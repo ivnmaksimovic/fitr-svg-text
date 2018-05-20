@@ -1,8 +1,8 @@
 {
 	"name": "fitr-svg-text",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Fits text of any number of characters into provided dimensions and position within svg.",
-	"main": "build/index.js",
+	"main": "dist/index.js",
 	"scripts": {
 		"start": "npm run storybook",
 		"storybook": "start-storybook -p 9001 -c .storybook",
