@@ -83,3 +83,15 @@ storiesOf('ReactResponsiveText within svg', module)
 			textAnchor='end'
 		/>
 	))
+	.add('adds class to text tag', () => (
+		<FitrSvgText
+			textClassName='class-1 class-2'
+			text='Yo!'
+			width={200}
+			maxHeight={80}
+			x={300}
+			y={100}
+			parentSvgHeight={200}
+			textAnchor='end'
+		/>
+	))

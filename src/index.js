@@ -79,7 +79,11 @@ class FitrSvgText extends Component {
 				width={this.state.width} x={this.state.x} y={this.state.y}
 			>
 				<svg viewBox={this.state.viewBox} >
-					<text ref={node => this.text = node} style={{ textAnchor: this.props.textAnchor }} >
+					<text
+						className={this.props.textClassName}
+						ref={node => this.text = node}
+						style={{ textAnchor: this.props.textAnchor }}
+					>
 						{this.props.text}
 					</text>
 				</svg>
@@ -89,6 +93,7 @@ class FitrSvgText extends Component {
 }
 
 FitrSvgText.propTypes = {
+	textClassName: PropTypes.string,
 	text: PropTypes.string.isRequired,
 	textAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
 	x: PropTypes.number.isRequired,
