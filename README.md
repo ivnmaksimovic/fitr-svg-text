@@ -49,6 +49,10 @@ ReactDOM.render(
 2. run `npm start`
 3. go to [http://localhost:9001/](http://localhost:9001/)
 
+## Generate static doc
+
+run `npm run static-docs` to generate docs in `docs` folder
+
 ## License
 
 `fitr-svg-text` is released under the MIT license.
