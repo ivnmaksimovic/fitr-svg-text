@@ -27,7 +27,7 @@ const SVGDecorator = (storyFn) => (
 	</div>
 );
 
-const stories = storiesOf('ReactResponsiveText within svg', module);
+const stories = storiesOf('FitrSvgText', module);
 	stories
 	.addDecorator(SVGDecorator)
 	.addDecorator(withInfo)
