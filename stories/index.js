@@ -1,33 +1,51 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import { withInfo } from '@storybook/addon-info';
 import FitrSvgText from '../src';
 
-storiesOf('ReactResponsiveText within svg', module)
-	.addDecorator(story => (
-		<div className="wrapper"
-			style={{margin: '10px auto', width: '400px'}}>
-			<svg viewBox="0 0 400 200" style={{display: 'block', width: '100%', outline: '4px solid red'}}>
+const styles = {
+	wrapper: {
+		margin: '10px auto',
+		width: '400px'
+	},
+	svg: {
+		display: 'block',
+		width: '100%',
+		outline: '4px solid red'
+	}
+};
+const SVGDecorator = (storyFn) => (
+	<div className="wrapper" style={styles.wrapper} >
+		<svg viewBox="0 0 400 200" style={styles.svg}>
 
-				{story()}
+			{ storyFn() }
 
-				<rect width="200" height="2" x="100" y="50" fill="red"/>
-				<rect width="200" height="2" x="100" y="100" fill="red"/>
-				<rect width="200" height="2" x="100" y="150" fill="red"/>
-			</svg>
-		</div>
-	))
-	.add('limit width when many characters', () => (
-		<FitrSvgText
-			text='This should fit here'
-			width={200}
-			maxHeight={80}
-			x={200}
-			y={100}
-			parentSvgHeight={200}
-			textAnchor='middle'
-		/>
-	))
+			<rect width="200" height="2" x="100" y="50" fill="red"/>
+			<rect width="200" height="2" x="100" y="100" fill="red"/>
+			<rect width="200" height="2" x="100" y="150" fill="red"/>
+		</svg>
+	</div>
+);
+
+const stories = storiesOf('ReactResponsiveText within svg', module);
+	stories
+	.addDecorator(SVGDecorator)
+	.addDecorator(withInfo)
+
+	.add('limit width when many characters',
+		() => (
+			<FitrSvgText
+				text='This should fit here'
+				width={200}
+				maxHeight={80}
+				x={200}
+				y={100}
+				parentSvgHeight={200}
+				textAnchor='middle'
+			/>
+		),
+		{ info: 'Text should addapt it\'s size to fit in 200 x 80 regardles of number of characters' }
+	)
 	.add('limit width when a bit less characters', () => (
 		<FitrSvgText
 			text='Also fit here'
@@ -50,17 +68,20 @@ storiesOf('ReactResponsiveText within svg', module)
 			textAnchor='middle'
 		/>
 	))
-	.add('limit height with text-anchor=middle', () => (
-		<FitrSvgText
-			text='Yo!'
-			width={200}
-			maxHeight={80}
-			x={200}
-			y={100}
-			parentSvgHeight={200}
-			textAnchor='middle'
-		/>
-	))
+	.add('limit height with text-anchor=middle',
+		() => (
+			<FitrSvgText
+				text='Yo!'
+				width={200}
+				maxHeight={80}
+				x={200}
+				y={100}
+				parentSvgHeight={200}
+				textAnchor='middle'
+			/>
+		),
+		{ info: 'Text should never be taller than 80 regardles of number of characters' }
+	)
 	.add('limit height with text-anchor=start', () => (
 		<FitrSvgText
 			text='Yo!'
