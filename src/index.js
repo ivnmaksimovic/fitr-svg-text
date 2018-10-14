@@ -103,4 +103,6 @@ FitrSvgText.propTypes = {
 	parentSvgHeight: PropTypes.number.isRequired
 };
 
+FitrSvgText.displayName = 'FitrSvgText';
+
 export default FitrSvgText;
