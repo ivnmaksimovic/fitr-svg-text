@@ -20,10 +20,20 @@ class FitrSvgText extends Component {
 	}
 
 	componentDidMount() {
+		this.setState(() => this.getNewDimensions());
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.text !== prevProps.text) {
+			this.setState(() => this.getNewDimensions());
+		}
+	}
+
+	getNewDimensions() {
 		const textWidth = this.text.getBBox().width; // default text width
 		const textHeight = this.text.getBBox().height; // default text height
 
-		this.fitSvg(textWidth, textHeight, this.props.width, this.props.maxHeight);
+		return this.fitSvg(textWidth, textHeight, this.props.width, this.props.maxHeight);
 	}
 
 	/**
@@ -61,15 +71,12 @@ class FitrSvgText extends Component {
 			x = this.props.x - width;
 		}
 
-
-		this.setState(() => {
-			return {
-				viewBox: `${viewBoxX}, 0, ${textWidth}, ${textHeight}`,
-				x: x,
-				y: this.props.y - topOffset,
-				width: width
-			}
-		});
+		return {
+			viewBox: `${viewBoxX}, 0, ${textWidth}, ${textHeight}`,
+			x: x,
+			y: this.props.y - topOffset,
+			width: width
+		};
 	}
 
 	render() {
@@ -90,7 +97,7 @@ class FitrSvgText extends Component {
 			</svg>
 		);
 	}
-}
+};
 
 FitrSvgText.propTypes = {
 	textClassName: PropTypes.string,
