@@ -43,7 +43,6 @@ stories
 				maxHeight={80}
 				x={200}
 				y={100}
-				parentSvgHeight={200}
 				textAnchor='middle'
 			/>
 		),
@@ -56,7 +55,6 @@ stories
 			maxHeight={80}
 			x={200}
 			y={100}
-			parentSvgHeight={200}
 			textAnchor='middle'
 		/>
 	))
@@ -68,7 +66,6 @@ stories
 				maxHeight={80}
 				x={200}
 				y={100}
-				parentSvgHeight={200}
 				textAnchor='middle'
 			/>
 		),
@@ -81,7 +78,6 @@ stories
 			maxHeight={80}
 			x={100}
 			y={100}
-			parentSvgHeight={200}
 			textAnchor='start'
 		/>
 	))
@@ -92,7 +88,6 @@ stories
 			maxHeight={80}
 			x={300}
 			y={100}
-			parentSvgHeight={200}
 			textAnchor='end'
 		/>
 	))
@@ -104,7 +99,6 @@ stories
 			maxHeight={80}
 			x={300}
 			y={100}
-			parentSvgHeight={200}
 			textAnchor='end'
 		/>
 	))

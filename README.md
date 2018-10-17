@@ -23,7 +23,6 @@ ReactDOM.render(
       maxHeight={80}
       x={200}
       y={100}
-      parentSvgHeight={200}
       textAnchor='middle'
     />
   </svg>,
@@ -40,7 +39,6 @@ ReactDOM.render(
 | maxHeight | number | - | Limit height so text can not grow to much if there is for example only 2 characters but width is 400px |
 | x | number | - | x position of text relative to parent svg. It respects the text-achor property |
 | y | number | - | y position of text baseline relative to parent svg |
-| parentSvgHeight | number | - | parent svg height is unfortunately required for positioning to work. This is implementation detail that should be maybe solved in better way |
 | textAnchor | string | 'start' | native text-anchor accepting one of 'start', 'middle' or 'end' [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) |
 
 ## Develop

@@ -32,8 +32,13 @@ class FitrSvgText extends Component {
 	getNewDimensions() {
 		const textWidth = this.text.getBBox().width; // default text width
 		const textHeight = this.text.getBBox().height; // default text height
+		this.parentSvg = this.positioner.parentNode.closest("svg");
+		this.parentSvgHeight = this.positioner.parentNode
+			.closest("svg")
+			.getBoundingClientRect()
+			.height; // height of container svg
 
-		return this.fitSvg(textWidth, textHeight, this.props.width, this.props.maxHeight);
+		return this.fitSvg(textWidth, textHeight, this.props.width, this.props.maxHeight, this.parentSvgHeight);
 	}
 
 	/**
@@ -44,8 +49,9 @@ class FitrSvgText extends Component {
 	 * @param {number} textHeight text height with default font size and viewbox
 	 * @param {number} width wanted textWidth set in props
 	 * @param {number} maxHeight wanted max height set in props when name is for example few chars
+	 * @param {number} parentSvgHeight height of svg container, where FitrSvgText is rendered
 	 */
-	fitSvg(textWidth, textHeight, width, maxHeight) {
+	fitSvg(textWidth, textHeight, width, maxHeight, parentSvgHeight) {
 		let height = width * textHeight / textWidth; // scalled text height
 
 		if (height > maxHeight) {
@@ -54,7 +60,7 @@ class FitrSvgText extends Component {
 		}
 
 		// after viewbox reset we have to calculate text to top distance to be able to reposition
-		const topOffset = (this.props.parentSvgHeight - height) / 2; // TODO 200 is hardcoded container svg height. Fix it!
+		const topOffset = (parentSvgHeight - height) / 2;
 
 		// this is offset so that text is not cropped after viewbox readjustment if it is for example centered
 		let viewBoxX = 0;
@@ -106,8 +112,7 @@ FitrSvgText.propTypes = {
 	x: PropTypes.number.isRequired,
 	y: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
-	maxHeight: PropTypes.number.isRequired,
-	parentSvgHeight: PropTypes.number.isRequired
+	maxHeight: PropTypes.number.isRequired
 };
 
 FitrSvgText.displayName = 'FitrSvgText';
