@@ -1,6 +1,6 @@
 {
 	"name": "fitr-svg-text",
-	"version": "0.0.6",
+	"version": "1.0.0",
 	"description": "Fits text of any number of characters into provided dimensions and position within svg.",
 	"main": "dist/index.js",
 	"scripts": {
