@@ -15,12 +15,11 @@ const styles = {
 		outline: '4px solid red'
 	}
 };
+
 const SVGDecorator = (storyFn) => (
 	<div className="wrapper" style={styles.wrapper} >
 		<svg viewBox="0 0 400 200" style={styles.svg}>
-
 			{ storyFn() }
-
 			<rect width="200" height="2" x="100" y="50" fill="red"/>
 			<rect width="200" height="2" x="100" y="100" fill="red"/>
 			<rect width="200" height="2" x="100" y="150" fill="red"/>
@@ -28,9 +27,45 @@ const SVGDecorator = (storyFn) => (
 	</div>
 );
 
-const stories = storiesOf('FitrSvgText', module);
+const divStyles = {
+	wrapper: {
+		background: 'red',
+		width: '100%',
+		height: '200px'
+	}
+};
 
-stories
+const DivDecorator = (storyFn) => (
+	<div className="wrapper" style={divStyles.wrapper} >
+		{ storyFn() }
+	</div>
+);
+
+const divStories = storiesOf('FitrSvgText in HTML', module);
+
+divStories
+	.addDecorator(DivDecorator)
+	.addDecorator(withInfo)
+	.addDecorator(withKnobs)
+
+	.add('in DIV limit width and height no matter how many characters',
+		() => (
+			<FitrSvgText
+				text={text('Text', 'Edit this text in Knobs tab and it will still fit!')}
+				width={'100%'}
+				maxHeight={'100%'}
+				x={0}
+				y={0}
+				textAnchor='start'
+				inHtml
+			/>
+		),
+		{ info: 'Text should addapt it\'s size to fit in 100% container width regardles of number of characters' }
+	)
+
+const svgStories = storiesOf('FitrSvgText in SVG', module);
+
+svgStories
 	.addDecorator(SVGDecorator)
 	.addDecorator(withInfo)
 	.addDecorator(withKnobs)

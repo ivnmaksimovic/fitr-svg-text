@@ -16,7 +16,9 @@ class FitrSvgText extends Component {
 			width: this.props.width
 		}
 
-		this.fitSvg = this.fitSvg.bind(this);
+		this.fitSvgInHtml = this.fitSvgInHtml.bind(this);
+		this.fitSvgInSvg = this.fitSvgInSvg.bind(this);
+		this.convertValueToPx.bind(this);
 	}
 
 	componentDidMount() {
@@ -29,16 +31,59 @@ class FitrSvgText extends Component {
 		}
 	}
 
+	convertValueToPx(valueInPercents, hundredPercentsInPixels) {
+		const valueWithoutUnit = parseInt(valueInPercents, 10);
+		const v = valueWithoutUnit / 100 * hundredPercentsInPixels;
+		return v;
+	}
+
 	getNewDimensions() {
 		const textWidth = this.text.getBBox().width; // default text width
 		const textHeight = this.text.getBBox().height; // default text height
-		this.parentSvg = this.positioner.parentNode.closest("svg");
-		this.parentSvgHeight = this.positioner.parentNode
-			.closest("svg")
-			.getBoundingClientRect()
-			.height; // height of container svg
+		this.parentNode = this.positioner.parentNode;
 
-		return this.fitSvg(textWidth, textHeight, this.props.width, this.props.maxHeight, this.parentSvgHeight);
+		if (!this.props.inHtml) {
+			this.parentSvg = this.parentNode.closest("svg");
+
+			this.parentElementHeight = this.parentSvg.getBoundingClientRect().height; // height of container svg
+
+			return this.fitSvgInSvg(textWidth, textHeight, this.props.width, this.props.maxHeight, this.parentElementHeight);
+		}
+		const container = this.parentNode.getBoundingClientRect();
+		const maxHeight = this.convertValueToPx(this.props.maxHeight, container.height);
+
+		return this.fitSvgInHtml(textWidth, textHeight, container.width, maxHeight);
+	}
+
+	fitSvgInHtml(textWidth, textHeight, width, maxHeight) {
+		let height = width * textHeight / textWidth; // scalled text height
+
+		if (height > maxHeight) {
+			height = maxHeight;
+			width = height * textWidth / textHeight;
+		}
+
+		// this is offset so that text is not cropped after viewbox readjustment if it is for example centered
+		let viewBoxX = 0;
+
+		// x have to be moved depending on textAnchor. If not than the viewBox crops the text
+		let x = this.props.x; // textAnchor === 'start'
+
+		if (this.props.textAnchor === 'middle') {
+			viewBoxX = -(textWidth / 2);
+			x = this.props.x - width / 2;
+		}
+		if (this.props.textAnchor === 'end') {
+			viewBoxX = -textWidth;
+			x = this.props.x - width;
+		}
+
+		return {
+			viewBox: `${viewBoxX}, 0, ${textWidth}, ${textHeight}`,
+			x: x,
+			y: this.props.y,
+			width: width
+		};
 	}
 
 	/**
@@ -49,9 +94,9 @@ class FitrSvgText extends Component {
 	 * @param {number} textHeight text height with default font size and viewbox
 	 * @param {number} width wanted textWidth set in props
 	 * @param {number} maxHeight wanted max height set in props when name is for example few chars
-	 * @param {number} parentSvgHeight height of svg container, where FitrSvgText is rendered
+	 * @param {number} parentElementHeight height of svg container, where FitrSvgText is rendered
 	 */
-	fitSvg(textWidth, textHeight, width, maxHeight, parentSvgHeight) {
+	fitSvgInSvg(textWidth, textHeight, width, maxHeight, parentElementHeight) {
 		let height = width * textHeight / textWidth; // scalled text height
 
 		if (height > maxHeight) {
@@ -60,12 +105,12 @@ class FitrSvgText extends Component {
 		}
 
 		// after viewbox reset we have to calculate text to top distance to be able to reposition
-		const topOffset = (parentSvgHeight - height) / 2;
+		const topOffset = (parentElementHeight - height) / 2;
 
 		// this is offset so that text is not cropped after viewbox readjustment if it is for example centered
 		let viewBoxX = 0;
 
-		// x have to be moved depending on textAnchor. If not than the viewBox can crops the text
+		// x have to be moved depending on textAnchor. If not than the viewBox crops the text
 		let x = this.props.x; // textAnchor === 'start'
 
 		if (this.props.textAnchor === 'middle') {
@@ -89,7 +134,9 @@ class FitrSvgText extends Component {
 		return (
 			<svg
 				ref={node => this.positioner = node}
-				width={this.state.width} x={this.state.x} y={this.state.y}
+				width={this.state.width}
+				x={this.state.x}
+				y={this.state.y}
 			>
 				<svg viewBox={this.state.viewBox} >
 					<text
@@ -111,8 +158,8 @@ FitrSvgText.propTypes = {
 	textAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
 	x: PropTypes.number.isRequired,
 	y: PropTypes.number.isRequired,
-	width: PropTypes.number.isRequired,
-	maxHeight: PropTypes.number.isRequired
+	width: PropTypes.any.isRequired,
+	maxHeight: PropTypes.any.isRequired
 };
 
 FitrSvgText.displayName = 'FitrSvgText';
