@@ -44,11 +44,11 @@ class FitrSvgText extends Component {
 
 		if (!this.props.inHtml) {
 			this.parentSvg = this.parentNode.closest("svg");
-
 			this.parentElementHeight = this.parentSvg.getBoundingClientRect().height; // height of container svg
 
 			return this.fitSvgInSvg(textWidth, textHeight, this.props.width, this.props.maxHeight, this.parentElementHeight);
 		}
+
 		const container = this.parentNode.getBoundingClientRect();
 		const maxHeight = this.convertValueToPx(this.props.maxHeight, container.height);
 
@@ -82,7 +82,8 @@ class FitrSvgText extends Component {
 			viewBox: `${viewBoxX}, 0, ${textWidth}, ${textHeight}`,
 			x: x,
 			y: this.props.y,
-			width: width
+			width: width,
+			height: height
 		};
 	}
 
@@ -133,16 +134,23 @@ class FitrSvgText extends Component {
 	render() {
 		return (
 			<svg
+				style={{border: '1px solid red'}}
 				ref={node => this.positioner = node}
 				width={this.state.width}
+				height={this.state.height}
 				x={this.state.x}
 				y={this.state.y}
 			>
-				<svg viewBox={this.state.viewBox} >
+				<svg
+					style={{border: '1px solid green'}}
+					viewBox={this.state.viewBox}
+					// y={50}
+				>
 					<text
 						className={this.props.textClassName}
 						ref={node => this.text = node}
 						style={{ textAnchor: this.props.textAnchor }}
+						y={12} // why this works? TODO make text baseline fixed
 					>
 						{this.props.text}
 					</text>

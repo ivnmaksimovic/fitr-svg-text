@@ -29,9 +29,10 @@ const SVGDecorator = (storyFn) => (
 
 const divStyles = {
 	wrapper: {
-		background: 'red',
+		background: 'none',
 		width: '100%',
-		height: '200px'
+		height: '200px',
+		border: '1px solid black'
 	}
 };
 
@@ -51,7 +52,7 @@ divStories
 	.add('in DIV limit width and height no matter how many characters',
 		() => (
 			<FitrSvgText
-				text={text('Text', 'Edit this text in Knobs tab and it will still fit!')}
+				text={text('Text', 'jjjjjjjjj')}
 				width={'100%'}
 				maxHeight={'100%'}
 				x={0}
