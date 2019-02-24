@@ -49,10 +49,16 @@ class FitrSvgText extends Component {
 			return this.fitSvgInSvg(textWidth, textHeight, this.props.width, this.props.maxHeight, this.parentElementHeight);
 		}
 
-		const container = this.parentNode.getBoundingClientRect();
-		const maxHeight = this.convertValueToPx(this.props.maxHeight, container.height);
+		const containerStyles = window.getComputedStyle(this.parentNode);
+		const containerHeight = parseFloat(containerStyles.height);
+		const containerWidth = parseFloat(containerStyles.width);
+		const maxHeight = this.convertValueToPx(this.props.maxHeight, containerHeight);
 
-		return this.fitSvgInHtml(textWidth, textHeight, container.width, maxHeight);
+		return this.fitSvgInHtml(textWidth, textHeight, containerWidth, maxHeight);
+		// const containerDimensions = this.parentNode.getBoundingClientRect();
+		// const maxHeight = this.convertValueToPx(this.props.maxHeight, containerDimensions.height);
+
+		// return this.fitSvgInHtml(textWidth, textHeight, containerDimensions.width, maxHeight);
 	}
 
 	fitSvgInHtml(textWidth, textHeight, width, maxHeight) {
@@ -79,7 +85,8 @@ class FitrSvgText extends Component {
 		}
 
 		return {
-			viewBox: `${viewBoxX}, 0, ${textWidth}, ${textHeight}`,
+			viewBox: `${viewBoxX}, -${textHeight}, ${textWidth}, ${textHeight}`, // why -14
+			// viewBox: `${viewBoxX}, -14, ${textWidth}, ${textHeight}`, // why -14
 			x: x,
 			y: this.props.y,
 			width: width,
@@ -134,7 +141,7 @@ class FitrSvgText extends Component {
 	render() {
 		return (
 			<svg
-				style={{border: '1px solid red'}}
+				style={{border: '1px solid red', boxSizing: 'border-box'}}
 				ref={node => this.positioner = node}
 				width={this.state.width}
 				height={this.state.height}
@@ -150,7 +157,8 @@ class FitrSvgText extends Component {
 						className={this.props.textClassName}
 						ref={node => this.text = node}
 						style={{ textAnchor: this.props.textAnchor }}
-						y={12} // why this works? TODO make text baseline fixed
+						// style={{ fontSize: '10px', lineHeight: '10px', textAnchor: this.props.textAnchor }}
+						// y={12} // why this works? TODO make text baseline fixed
 					>
 						{this.props.text}
 					</text>

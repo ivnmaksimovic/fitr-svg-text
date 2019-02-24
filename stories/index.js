@@ -29,10 +29,13 @@ const SVGDecorator = (storyFn) => (
 
 const divStyles = {
 	wrapper: {
-		background: 'none',
-		width: '100%',
+		// boxSizing: 'border-box', // TODO what if parent is border-box/content-box
+		width: '400px',
 		height: '200px',
-		border: '1px solid black'
+		margin: '10px auto',
+		border: '30px solid #ccc',
+		margin: '30px auto',
+		background: 'none'
 	}
 };
 
@@ -52,7 +55,7 @@ divStories
 	.add('in DIV limit width and height no matter how many characters',
 		() => (
 			<FitrSvgText
-				text={text('Text', 'jjjjjjjjj')}
+				text={text('Text', 'jMk')}
 				width={'100%'}
 				maxHeight={'100%'}
 				x={0}
