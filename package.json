@@ -9,7 +9,7 @@
 		"static-docs": "npm run clean-static && build-storybook -c .storybook -o docs",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"clean-dist": "rm -rf ./dist",
-		"clean-static": "rm -rf ./docs/static",
+		"clean-static": "rm -rf ./docs",
 		"build": "yarn run clean-dist && NODE_ENV=production `yarn bin`/babel ./src --out-dir ./dist"
 	},
 	"keywords": [
@@ -31,10 +31,10 @@
 		"@babel/core": "^7.5.5",
 		"@babel/preset-env": "^7.5.5",
 		"@babel/preset-react": "^7.0.0",
-		"@storybook/addon-info": "4.0.0-rc.0",
-		"@storybook/addon-knobs": "4.0.0-rc.0",
-		"@storybook/addons": "4.0.0-rc.0",
-		"@storybook/react": "4.0.0-rc.0",
+		"@storybook/addon-info": "^5.1.11",
+		"@storybook/addon-knobs": "^5.1.11",
+		"@storybook/addons": "^5.1.11",
+		"@storybook/react": "^5.1.11",
 		"babel-loader": "^8.0.6",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0"
