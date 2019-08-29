@@ -6,9 +6,10 @@
 	"scripts": {
 		"start": "npm run storybook",
 		"storybook": "start-storybook -p 9001 -c .storybook",
-		"static-docs": "build-storybook -c .storybook -o docs",
+		"static-docs": "npm run clean-static && build-storybook -c .storybook -o docs",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"clean-dist": "rm -rf ./dist",
+		"clean-static": "rm -rf ./docs/static",
 		"build": "yarn run clean-dist && NODE_ENV=production `yarn bin`/babel ./src --out-dir ./dist"
 	},
 	"keywords": [
@@ -26,23 +27,23 @@
 		"url": "https://github.com/ivnmaksimovic/fitr-svg-text"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.1.2",
-		"@babel/core": "^7.1.2",
-		"@babel/preset-env": "^7.1.0",
+		"@babel/cli": "^7.5.5",
+		"@babel/core": "^7.5.5",
+		"@babel/preset-env": "^7.5.5",
 		"@babel/preset-react": "^7.0.0",
 		"@storybook/addon-info": "4.0.0-rc.0",
 		"@storybook/addon-knobs": "4.0.0-rc.0",
 		"@storybook/addons": "4.0.0-rc.0",
 		"@storybook/react": "4.0.0-rc.0",
-		"babel-loader": "^8.0.4",
-		"react": "^16.3.2",
-		"react-dom": "^16.3.2"
+		"babel-loader": "^8.0.6",
+		"react": "^16.9.0",
+		"react-dom": "^16.9.0"
 	},
 	"peerDependencies": {
 		"react": "^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0",
 		"react-dom": "^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0"
 	},
 	"dependencies": {
-		"prop-types": "^15.6.1"
+		"prop-types": "^15.7.2"
 	}
 }
