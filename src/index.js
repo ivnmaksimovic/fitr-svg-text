@@ -54,14 +54,14 @@ class FitrSvgText extends Component {
 		const containerWidth = parseFloat(containerStyles.width);
 		const maxHeight = this.convertValueToPx(this.props.maxHeight, containerHeight);
 
-		return this.fitSvgInHtml(textWidth, textHeight, containerWidth, maxHeight);
+		return this.fitSvgInHtml(textWidth, textHeight, containerWidth, maxHeight, containerHeight);
 		// const containerDimensions = this.parentNode.getBoundingClientRect();
 		// const maxHeight = this.convertValueToPx(this.props.maxHeight, containerDimensions.height);
 
 		// return this.fitSvgInHtml(textWidth, textHeight, containerDimensions.width, maxHeight);
 	}
 
-	fitSvgInHtml(textWidth, textHeight, width, maxHeight) {
+	fitSvgInHtml(textWidth, textHeight, width, maxHeight, containerHeight) {
 		let height = width * textHeight / textWidth; // scalled text height
 
 		if (height > maxHeight) {
@@ -90,7 +90,8 @@ class FitrSvgText extends Component {
 			x: x,
 			y: this.props.y,
 			width: width,
-			height: height
+			height: height,
+			top: containerHeight - height
 		};
 	}
 
@@ -141,7 +142,12 @@ class FitrSvgText extends Component {
 	render() {
 		return (
 			<svg
-				style={{border: '1px solid red', boxSizing: 'border-box'}}
+				style={{
+					// border: '1px solid red',
+					boxSizing: 'border-box',
+					position: this.props.inHtml ? 'absolute' : 'relative',
+					top: this.props.inHtml ? this.state.top : undefined
+				}}
 				ref={node => this.positioner = node}
 				width={this.state.width}
 				height={this.state.height}
@@ -149,7 +155,7 @@ class FitrSvgText extends Component {
 				y={this.state.y}
 			>
 				<svg
-					style={{border: '1px solid green'}}
+					// style={{border: '1px solid green'}}
 					viewBox={this.state.viewBox}
 					// y={50}
 				>

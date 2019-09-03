@@ -33,9 +33,9 @@ const divStyles = {
 		width: '400px',
 		height: '200px',
 		margin: '10px auto',
-		border: '30px solid #ccc',
-		margin: '30px auto',
-		background: 'none'
+		border: '1px solid #ccc',
+		// margin: '30px auto',
+		background: 'gray'
 	}
 };
 
@@ -55,7 +55,7 @@ divStories
 	.add('in DIV limit width and height no matter how many characters',
 		() => (
 			<FitrSvgText
-				text={text('Text', 'jMk')}
+				text={text('Text', 'mmmmmjMk')}
 				width={'100%'}
 				maxHeight={'100%'}
 				x={0}
