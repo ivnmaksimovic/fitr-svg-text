@@ -33,9 +33,20 @@ const divStyles = {
 		width: '400px',
 		height: '200px',
 		margin: '10px auto',
-		border: '1px solid #ccc',
+		// border: '1px solid #ccc',
 		// margin: '30px auto',
-		background: 'gray'
+		background: 'gray',
+
+		// GRID
+		backgroundColor: '#269',
+		backgroundImage: `
+			linear-gradient(white 2px, transparent 2px),
+			linear-gradient(90deg, white 2px, transparent 2px),
+			linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)
+		`,
+		backgroundSize: '100px 100px, 100px 100px, 20px 20px, 20px 20px',
+		backgroundPosition: '-1px -1px, -1px -1px, -1px -1px, -1px -1px',
 	}
 };
 
@@ -63,6 +74,22 @@ divStories
 				textAnchor='start'
 				inHtml
 			/>
+		),
+		{ info: 'Text should addapt it\'s size to fit in 100% container width regardles of number of characters' }
+	)
+	.add('in DIV with extra wrapper to position it in left half',
+		() => (
+			<div style={{ width: '50%', height: '50%'}}>
+				<FitrSvgText
+					text={text('Text', 'mmmmmjMk')}
+					width={'100%'}
+					maxHeight={'100%'}
+					x={0}
+					y={0}
+					textAnchor='start'
+					inHtml
+				/>
+			</div>
 		),
 		{ info: 'Text should addapt it\'s size to fit in 100% container width regardles of number of characters' }
 	)
